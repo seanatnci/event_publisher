@@ -1,0 +1,26 @@
+<h1>Listing Locations</h1>
+<div class="clearfix"
+
+<table>
+  <tr>
+    <th>Last Name</th>
+    <th>First Name</th>
+    <th>Email Address</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @emails.each do |em| %>
+  <tr>
+    <td><%= em.last_name %></td>
+    <td><%= em.first_name %></td>
+    <td><%= em.email %></td>
+    <td><%= link_to 'Edit', edit_email_path(em) %></td>
+    <td><%= link_to 'Delete', em, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+
+<%= link_to 'New Email Contact', new_email_path %>
+

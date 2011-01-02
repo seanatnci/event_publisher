@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EventPublisher</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'jquery-1.4.1' %>
+  <%= javascript_include_tag 'jquery-ui-timepicker-addon' %>
+  <%= csrf_meta_tag %>
+</head>
+<body onload="initialize()">
+<div id="container">
+      <div class="header">
+        <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %><h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
+        <div class="round fleft">
+          <ul>
+            <li><%= link_to "Home", '#' %></li>
+            <li><%= link_to "Help", '#' %></li>
+            <li><%= link_to "Sign in", '#' %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="clear"</div>
+      <div class="round">
+        <%= yield %>
+      </div>
+    </div>
+
+</body>
+</html>

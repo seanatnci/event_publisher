@@ -1,0 +1,43 @@
+<%= form_for(@organizer) do |f| %>
+  <% if @organizer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@organizer.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @organizer.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user %><br />
+    <%= f.text_field :user , :size => 50 %>
+  </div>
+<div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email, :size => 50 %>
+  </div>
+  <div class="field">
+    <%= f.label :organization %><br />
+    <%= f.text_field :organization, :size => 50 %>
+  </div>
+  <div class="field">
+  <label>Primary Location </label><br/>
+  <%=  collection_select(:organizer, :primary_event_location, @locations, :id, :location_name, {:include_blank => 'Please Select' }) %>
+  </div>
+  <div class="field fleft">
+    <%= f.label :event_home_page %><br />
+    <%= f.text_field :event_home_page , :size => 50 %>
+  </div>
+  <div class="field fleft padleft">
+    <%= f.label :twitter_handle %><br />
+    <%= f.text_field :twitter_handle , :size => 20 %>
+  </div>
+ 
+  <div class="clear"></div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

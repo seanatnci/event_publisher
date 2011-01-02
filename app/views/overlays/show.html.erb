@@ -1,0 +1,69 @@
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var map = null;
+    var geocoder = null;
+
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(53.348867,-6.243163), 16);
+        geocoder = new GClientGeocoder();
+      }
+    }
+     function locateBusiness(address,lat,longit) {
+
+        point = new GLatLng(lat,
+                            longit);
+        marker = new GMarker(point);
+
+        GEvent.addListener(marker,"click", function() {
+          marker.openInfoWindowHtml(address);
+        });
+
+        map.addOverlay(marker);
+        map.addControl(new GLargeMapControl());
+
+      }
+       $(function () {
+            $("#overlay").click(function (e) {
+
+                e.preventDefault(); /* prevents form from being submitted */
+
+                $.ajax({
+                    type: "Get",
+                    url: '/overlays.json',
+                    data: {  },
+                    dataType: "json",
+                    success: function (response) {
+                        var overlays = response;
+                        for (var i=0; i<overlays.length; i++)
+                          {
+                            var lat = overlays[i].overlay.lat;
+                            var lon = overlays[i].overlay.lon;
+                            var address = overlays[i].overlay.name;
+                            locateBusiness(address,lat,lon);
+                          }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // handle error
+
+                    }
+                });
+            });
+        });
+
+
+
+
+</script>
+ <button  id="overlay">Find</button>
+<h1>Listing Overlays</h1>
+<div class="clearfix"
+
+ <div id="map_canvas" style="margin-left: 20px; width: 900px; height: 500px; float: left;"></div>
+ <div class="clear"></div>
+<%= link_to 'New Location', new_location_path %>
+</div>
+

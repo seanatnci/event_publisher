@@ -1,0 +1,58 @@
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+    var map = null;
+    var geocoder = null;
+
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(53.348867,-6.243163), 13);
+        geocoder = new GClientGeocoder();
+      }
+    }
+     function locateBusiness(address,lat,longit) {
+      map.clearOverlays();
+
+        point = new GLatLng(lat,
+                            longit);
+        marker = new GMarker(point);
+        map.addOverlay(marker);
+        map.addControl(new GLargeMapControl());
+        map.setCenter(new GLatLng(lat,longit), 16);
+        marker.openInfoWindowHtml(address + '<br>' +
+          '<b>Country code:</b> ' + "other stuff");
+      }
+
+</script>
+<h1>Listing Locations</h1>
+<div class="clearfix"
+<div class="fleft"
+<table>
+  <tr>
+    <th>Location</th>
+    <th>Latitude</th>
+    <th>Longitude</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @locations.each do |loc| %>
+  <tr>
+    <td><%= loc.location_name %></td>
+    <td><%= loc.geo_lat %></td>
+    <td><%= loc.geo_long %></td>
+    <td><%= link_to_function 'Locate', "locateBusiness(\'#{loc.location_name}\',#{loc.geo_lat},#{loc.geo_long})" %></td>
+    <td><%= link_to 'Edit', edit_location_path(loc) %></td>
+    <td><%= link_to 'Delete', loc, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+ <div id="map_canvas" style="margin-left: 20px; width: 500px; height: 300px; float: left;"></div>
+ <div class="clear"></div>
+<%= link_to 'New Location', new_location_path %>
+</div>
+

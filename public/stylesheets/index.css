@@ -1,0 +1,94 @@
+body { background-color:white; color: #333; text-align:center;}
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+ul li a { text-decoration: none;}
+ul li { list-style-type: none;}
+#container {
+	width:1150px;
+        background-color:#f0f0f0;
+	margin:0px auto;
+	text-align:left;
+        padding: 7px;
+	}
+.clearfix:after
+{
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.padleft { padding-left:10px;}
+
+table tbody tr:nth-child(odd)    { background-color:#eee; }
+table tbody tr:nth-child(even)    { background-color:#fff; }
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+p{
+    margin-left:20px;
+}
+a { color: blue; }
+a:visited { color: blue; }
+a:hover { text-decoration: underline;  }
+
+div.field, div.actions {
+  margin-bottom: 10px;
+}
+.fleft { float: left}
+.clear { clear: both}
+
+h1#titlehead { margin-left: 30px; font-family: fantasy  ; font-size: 34px; color: #669966}
+
+div#maincontent
+{
+    padding:20px;
+}
+div#comments
+{
+    border: 1px solid grey;
+    margin-bottom: 5px;
+    width: 300px;
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#error_explanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  margin-bottom: 0px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#error_explanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
