@@ -14,8 +14,9 @@
 #  cost         :string(4)       not null
 #  event_url    :string(255)
 #
-
 class Event < ActiveRecord::Base
+
+  urlregex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
   belongs_to :location
   belongs_to :organizer
   belongs_to :category
@@ -28,8 +29,9 @@ class Event < ActiveRecord::Base
   validates :start_time,  :presence => true
   validates :category_id,  :presence => true
   validates :location_id,  :presence => true
-
-
+  validates :event_url,  :presence => true,
+      :format   => { :with => urlregex }
+  
   validates_with EventDateValidator
 
   def validate_date
@@ -38,4 +40,26 @@ class Event < ActiveRecord::Base
     errors.add :date, "End Date Must Be Greater Than Start Date" if (@end < @start)
   end
 
+  def short_location
+    self.location.location_name.split(",")[0]
+  end
+  def save
+    begin
+      super
+    rescue => e
+      redirect_to error_path, :notice => "error; =#{e.message}"
+    end
+  end
+
+  def self.setnew(params,organizer)
+    @event = Event.new(params)
+    @event.fixdatesfromdatepicker(params[:date],params[:end_date])
+
+    @event.organizer_id = organizer.id
+    return @event
+  end
+  def fixdatesfromdatepicker(date,end_date)
+    self.date=DateTime.strptime(date,"%m/%d/%Y") if self.date.nil?
+    self.end_date=DateTime.strptime(end_date,"%m/%d/%Y") if self.end_date.nil?
+  end
 end

@@ -1,12 +1,79 @@
 body { background-color:white; color: #333; text-align:center;}
 
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
+  font-family: georgia,verdana, arial, helvetica, sans-serif;
+  font-size:   0.9em;
+  line-height: 1.2em;
 }
+h2,h3 { color: #006400; margin:0px; margin-top: 6px;}
 ul li a { text-decoration: none;}
 ul li { list-style-type: none;}
+
+p { line-height: 1.63em}
+a {
+  color: #09c;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #069;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #09c;
+}
+
+.nav {
+  float: left;
+  margin-left: 100px;
+  margin-bottom:5px;
+}
+
+.nav {
+  background-color: white;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.nav ul {
+  margin: 0;
+  padding: 0;
+  float: left;
+ 
+}
+
+.nav ul li {
+  list-style-type: none;
+  float: left;
+  display: inline-block;
+  margin:0; padding: 8px;
+  border: 0px;
+  border-bottom: 1px solid black;
+}
+
+.nav ul li a {
+  padding: 0px;
+  margin: 0px; border: 0px;
+  font-weight: bold;
+  padding: 8px;
+}
+
+.nav ul li a:hover {
+  text-decoration: underline;
+}
+div.topnav  { margin-left: 0px;}
+.topnav ul { margin-left: 0px;}
+.topnav ul li {margin-left:10px; border: 0px; padding: 1px;}
+.nav ul li a.current { background-color: #f0f0f0;
+                        color: black;
+                        border-bottom: 1px solid #f0f0f0;
+                        border-top: 1px solid black;
+                        border-left: 1px solid black;
+                        border-right: 1px solid black;}
+
+div.biggerfont { font-size: 1.2em}
+
 #container {
 	width:1150px;
         background-color:#f0f0f0;
@@ -22,31 +89,67 @@ ul li { list-style-type: none;}
     clear: both;
     visibility: hidden;
 }
-
+.bordertop { border-top: 2px solid black; margin-top: 10px;text-align: left;
+  width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+div.boxxy { width: 560px; border: 1px solid green; padding: 6px; font-size: 1.0em; font-weight: bold;}
 .padleft { padding-left:10px;}
+h3 { margin-top:5px; margin-bottom:5px;}
 
+table { border-collapse:collapse; border: 1px solid darkorange}
 table tbody tr:nth-child(odd)    { background-color:#eee; }
 table tbody tr:nth-child(even)    { background-color:#fff; }
+table th { background-color: darkorange; padding: 3px;}
+table td { padding: 3px;}
+
+a.listings_button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 190px;
+  color: #fff;
+  background: #006400;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 20px;
+}
+
 pre {
   background-color: #eee;
   padding: 10px;
   font-size: 11px;
 }
 p{
-    margin-left:20px;
+    margin-left:5px;
 }
-a { color: blue; }
-a:visited { color: blue; }
-a:hover { text-decoration: underline;  }
-
+select:focus, textarea:focus, input:focus { border: 2px solid green}
+div.selectionbox { width: 180px; }
+div.bigtop { margin-top: 60px;}
+div.smalltop { margin-top: 20px;}
+div.locationtable { width: 500px;}
+div.helper { width: 240px; border: 1px solid black; padding: 6px; margin-left: 10px; background-color: white;}
 div.field, div.actions {
   margin-bottom: 10px;
 }
 .fleft { float: left}
+.fright { float: right}
 .clear { clear: both}
+img.icons {  margin-top: 5px; padding-left: 5px;}
 
-h1#titlehead { margin-left: 30px; font-family: fantasy  ; font-size: 34px; color: #669966}
-
+span#spancontent { color: green;}
+button#removeoverlay { color: blue; margin-left:10px; width:100px;}
+button#overlay { width: 100px; margin-left:10px;}
+h1#titlehead {  width: 300px; margin: 0; line-height: 60px; margin-top: 6px; margin-left: 30px; font-family: chiller,georgia,verdana,serif  ; font-size: 54px; color: #669966}
+div#overlays { margin-top: 2px; width: 134px;}
+div.bigleft {margin-left:100px;}
+div.tinyleft {margin-left:5px;}
+div#showevent {  border: 1px solid black; padding: 5px; background-color: white; width:280px;}
+div.displayboxxy { margin-left: 5px; border: 1px solid black; padding: 5px; background-color: white; width:250px;}
+div.displayboxxy ul { margin: 0px; padding: 0px; padding-left:5px;}
+div.displayboxxy h2 { margin: 0px; padding: 5px; }
 div#maincontent
 {
     padding:20px;
@@ -57,13 +160,15 @@ div#comments
     margin-bottom: 5px;
     width: 300px;
 }
+div.paddeddiv { padding: 30px;}
 
+div.flash { color: green;}
 #notice {
   color: green;
 }
 
 .field_with_errors {
-  padding: 2px;
+  border: solid red;
   background-color: red;
   display: table;
 }
@@ -81,7 +186,7 @@ div#comments
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
-  font-size: 12px;
+  font-size: 0.8em;
   margin: -7px;
   margin-bottom: 0px;
   background-color: #c00;
@@ -89,6 +194,6 @@ div#comments
 }
 
 #error_explanation ul li {
-  font-size: 12px;
+  font-size: 0.7em;
   list-style: square;
 }

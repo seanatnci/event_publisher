@@ -1,5 +1,24 @@
-<h1>New Location</h1>
+ <% if signed_in? %>
+ <%= render 'layouts/organizer_navigation' %>
+<% end %>
+<div class="clear"></div>
+<div>
+<div class="fleft bigleft">
+<h2>New Location</h2>
 
 <%= render 'form' %>
+</div>
+<div id="map_canvas" style="margin-left: 20px; margin-top: 10px; width: 390px; height: 250px; float: left;"></div
 
+ <% if !signed_in? %>
 <%= link_to 'Back', locations_path %>
+<% end %>
+</div>
+<div class ="fleft helper">
+  <p>Please Enter the address of the location you wish to store.</p> <p>The "Locate" button
+  will attempt to find the geo location of your location, based on this address.</p> <p>If you
+  feel that the "Locate" button has not located your location accurately you have
+  the option of dragging the marker to another location.</p> <p>Once happy that the location
+  is accurate press "Create Location" to save this location.</p>
+</div>
+<div class="clear"</div>

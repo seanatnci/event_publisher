@@ -1,7 +1,9 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
 
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
         $(document).ready(function () {
+        initialize();
+         $('#location_location_name').focus();
         $("#locate").click(function (e) {
                 e.preventDefault(); /* prevents form from being submitted */
                 var ikey = $('#location_location_name').val();
@@ -14,7 +16,35 @@
     var geocoder = null;
     var pts = new Array();
 
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(53.348867,-6.243162), 13);
+        geocoder = new GClientGeocoder();
+      }
+    }
+     function locateBusiness(address,lat,longit,elem1,elem2) {
+        map.clearOverlays();
+        point = new GLatLng(lat,
+                            longit);
+        marker = new GMarker(point, {draggable: true});
+
+        GEvent.addListener(marker, "dragstart", function() {
+          map.closeInfoWindow();
+        });
+
+        GEvent.addListener(marker, "dragend", function() {
+          var point = marker.getLatLng();
+           elem1.val(point.y);
+           elem2.val(point.x);
+        });
+        map.addOverlay(marker);
+        map.addControl(new GLargeMapControl());
+        map.setCenter(new GLatLng(lat,longit), 15);
+        
+      }
     function locateGeo(address, elem1,elem2) {
+      
       geocoder = new GClientGeocoder();
       if (geocoder) {
         geocoder.getLatLng(
@@ -26,6 +56,7 @@
               var marker = new GMarker(point);
               elem1.val(point.y);
               elem2.val(point.x);
+              locateBusiness(address,point.y,point.x,elem1,elem2)
     
             }
           }

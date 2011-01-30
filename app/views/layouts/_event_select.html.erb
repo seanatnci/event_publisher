@@ -1,0 +1,40 @@
+
+<div class="fleft selectionbox">
+  <h2>Events </h2>
+  <%= form_for @store, :as => :store, :url => view_events_path, :html => {:method => :post} do |f| %>
+  <div class="field">
+      <label>Select Category </label><br/>
+      <%=  collection_select( :store, :category, @categories, :id, :category_name, {:include_blank => 'Please Select' }) %>
+  </div>
+  <div class="field ">
+      <label>In The Next </label><br/>
+      <%=  select(:store,:date,@dateselect) %>
+  </div>
+  <div class="actions">
+   <input id="event_submit" name="commit" type="submit" value="Select" />
+
+  </div>
+  <% end %>
+</div>
+  <div class="fleft bigleft bigtop">
+   <table>
+   <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Date</th>
+    <th>Location</th>  
+    <th></th>
+  </tr>
+
+<% @events.each do |event| %>
+  <tr>
+    <td><%= event.title %></td>
+    <td style="width: 350px;"><%= (event.description.length > 50) ? (event.description[0..49] + '...') : event.description %></td>
+    <td><%= event.date.strftime("%m/%d/%Y") %></td>
+    <td><%= event.short_location %></td>
+    <td><%= link_to 'Show', event %></td>
+  </tr>
+<% end %>
+</table> 
+  </div>
+<div class="clear"></div>

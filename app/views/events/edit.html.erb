@@ -1,2 +1,9 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+ <%= render 'layouts/organizer_navigation' %>
+<div class="clear"></div>
+<div class="bigleft">
+<h2>Update Event Details</h2>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', events_path %>
+</div>

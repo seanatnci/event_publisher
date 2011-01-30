@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>New Event, <%= @event.title %></h1>
+    <p>
+      Has been announced, contact<%= @event.organizer.email %>.<br/>
+    </p>
+    <p>
+      For more details on this event, just follow this link: <%= @event.event_url %>.
+    </p>
+
+  </body>
+</html>

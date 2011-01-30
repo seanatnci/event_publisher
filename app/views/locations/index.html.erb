@@ -1,19 +1,19 @@
+
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
-
 <script type="text/javascript">
-
     var map = null;
     var geocoder = null;
+
 
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map_canvas"));
-        map.setCenter(new GLatLng(53.348867,-6.243163), 13);
+        map.setCenter(new GLatLng(53.348867,-6.243162), 13);
         geocoder = new GClientGeocoder();
       }
     }
      function locateBusiness(address,lat,longit) {
-      map.clearOverlays();
+        map.clearOverlays();
 
         point = new GLatLng(lat,
                             longit);
@@ -24,11 +24,14 @@
         marker.openInfoWindowHtml(address + '<br>' +
           '<b>Country code:</b> ' + "other stuff");
       }
-
-</script>
+       $(document).ready(function () {
+        initialize();
+       });
+      </script>
+ 
 <h1>Listing Locations</h1>
-<div class="clearfix"
-<div class="fleft"
+<div class="clearfix"></div>
+<div class="fleft locationtable">
 <table>
   <tr>
     <th>Location</th>
@@ -42,8 +45,8 @@
 <% @locations.each do |loc| %>
   <tr>
     <td><%= loc.location_name %></td>
-    <td><%= loc.geo_lat %></td>
-    <td><%= loc.geo_long %></td>
+    <td><%= number_with_precision(loc.geo_lat, :precision => 3) %></td>
+    <td><%= number_with_precision(loc.geo_long, :precision => 3) %></td>
     <td><%= link_to_function 'Locate', "locateBusiness(\'#{loc.location_name}\',#{loc.geo_lat},#{loc.geo_long})" %></td>
     <td><%= link_to 'Edit', edit_location_path(loc) %></td>
     <td><%= link_to 'Delete', loc, :confirm => 'Are you sure?', :method => :delete %></td>
@@ -54,5 +57,5 @@
  <div id="map_canvas" style="margin-left: 20px; width: 500px; height: 300px; float: left;"></div>
  <div class="clear"></div>
 <%= link_to 'New Location', new_location_path %>
-</div>
+
 

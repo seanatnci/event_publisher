@@ -1,3 +1,9 @@
+ <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $('#organizer_user').attr("readOnly", true);
+            $('#organizer_email').focus();
+        });
+</script>
 <%= form_for(@organizer) do |f| %>
   <% if @organizer.errors.any? %>
     <div id="error_explanation">

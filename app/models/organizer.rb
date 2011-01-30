@@ -12,7 +12,8 @@
 #
 
 class Organizer < ActiveRecord::Base
-   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  urlregex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
   has_many :emails
  
 
@@ -23,7 +24,8 @@ class Organizer < ActiveRecord::Base
 
   validates :organization,  :presence => true,
                     :length   => { :maximum => 45 }
-  validates :event_home_page, :presence => true
+  validates :event_home_page, :presence => true,
+                     :format   => { :with => urlregex }
 
 
 end

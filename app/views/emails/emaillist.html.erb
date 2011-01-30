@@ -1,3 +1,6 @@
+<h2>Upload Contacts File</h2>
+<%= render 'layouts/organizer_navigation' %><br/>
+<div class="paddeddiv clear">
 <%= form_for :dump, :url=>{ :action=>"csvup"},
                     :html => { :multipart => true } do |f| %>
  <table>
@@ -11,10 +14,11 @@
        <%= f.file_field :file %>
      </td>
    </tr>
-   <tr>
-     <td colspan='2'>
-       <%= submit_tag 'Submit' %>
-     </td>
-   </tr>
- </table>
+   
+ </table><br/><br/>
+<%= submit_tag 'Submit' %>
 <% end %>
+</div>
+<%= link_to 'New Email Contact', new_organizer_email_path(@organizer) %> |
+<%= link_to 'Contact List', organizer_emails_path(@organizer) %>
+

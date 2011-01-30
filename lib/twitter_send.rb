@@ -4,6 +4,13 @@ require 'twitter_oauth'
 
 class TwitterSend
 
+def initialize(event)
+          handle = event.organizer.twitter_handle ##  create method to return handle without exposing organizer
+          message = event.title + " at " + event.location.location_name + " on " + event.date.strftime("%d/%m/%Y")
+          handle = "seantwitter"
+          with_message(handle,message)
+end
+
 def with_message(handle,message)
    client = TwitterOAuth::Client.new(
     :consumer_key => 'us4M46Ccc6GRkX2ukOyCQ',

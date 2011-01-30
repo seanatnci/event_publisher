@@ -1,6 +1,10 @@
-<h1>Listing Locations</h1>
-<div class="clearfix"
+ <%= javascript_include_tag :defaults %>
 
+ <%= render 'layouts/organizer_navigation' %>
+
+ <div class="clear"></div>
+ <div class="bigleft">
+   <h2>Email Contacts</h2>
 <table>
   <tr>
     <th>Last Name</th>
@@ -15,12 +19,16 @@
     <td><%= em.last_name %></td>
     <td><%= em.first_name %></td>
     <td><%= em.email %></td>
-    <td><%= link_to 'Edit', edit_email_path(em) %></td>
-    <td><%= link_to 'Delete', em, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Edit', edit_organizer_email_path(@organizer,em) %></td>
+    <td><%= link_to "Delete",organizer_email_path(@organizer,em) ,:confirm => 'Are you sure?', :method => :delete%></td>
   </tr>
 <% end %>
 </table>
-</div>
 
-<%= link_to 'New Email Contact', new_email_path %>
+ 
+<%= link_to 'New Email Contact', new_organizer_email_path(@organizer) %> |
+<%= link_to 'Upload from File', emailupload_path(@organizer) %>
+</div>
+ <div class="clearfix"></div>
+
 

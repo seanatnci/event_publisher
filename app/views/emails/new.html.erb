@@ -1,5 +1,8 @@
 <h1>New Email Contact</h1>
-
+<%= render 'layouts/organizer_navigation' %><br/>
+<div class="clear"></div>
+<div class=" bigleft">
 <%= render 'form' %>
 
-<%= link_to 'Back', organizers_path %>
+<%= link_to 'Back', organizer_emails_path(@organizer) %>
+</div>

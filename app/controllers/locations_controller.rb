@@ -1,12 +1,24 @@
 class LocationsController < ApplicationController
   def new
     @location = Location.new()
+    if signed_in?
+      @organizer = Organizer.find_by_user(current_user.account)
+    end
   end
 def create
     @location = Location.new(params[:location])
+    if signed_in?
+      @organizer = Organizer.find_by_user(current_user.account)
+    end
        respond_to do |format|
       if @location.save
-        format.html { redirect_to(@location, :notice => 'Location was successfully created.') }
+        format.html { 
+          if !signed_in?
+            redirect_to(@location, :notice => 'Location was successfully created.')
+          else
+            redirect_to(new_event_path, :notice => 'Location was successfully created.')
+          end
+            }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }

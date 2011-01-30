@@ -1,0 +1,32 @@
+--2011-01-03 17:17:36--  http://rubyforge.org/frs/download.php/38646/rubygems-1.2.0.tgz
+Resolving rubyforge.org... 205.234.109.19
+Connecting to rubyforge.org|205.234.109.19|:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz [following]
+--2011-01-03 17:17:37--  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Resolving files.rubyforge.vm.bytemark.co.uk... 80.68.94.54
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:20:47--  (try: 2)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:23:58--  (try: 3)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:27:10--  (try: 4)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:30:23--  (try: 5)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:33:37--  (try: 6)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... failed: Connection timed out.
+Retrying.
+
+--2011-01-03 17:36:52--  (try: 7)  http://files.rubyforge.vm.bytemark.co.uk/rubygems/rubygems-1.2.0.tgz
+Connecting to files.rubyforge.vm.bytemark.co.uk|80.68.94.54|:80... 

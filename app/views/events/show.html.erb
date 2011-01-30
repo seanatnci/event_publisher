@@ -1,3 +1,170 @@
-<h1>Events#show</h1>
-<p>Find me in app/views/events/show.html.erb</p>
-<%= @overlays.inspect %>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAAzr2EBOXUKnm_jVnk0OJI7xSosDVG8KKPE1-m51RBrvYughuyMxQ-i1QfUnH94QxWIa6N4U6MouMmBA" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var map = null;
+    var geocoder = null;
+    var markerOptions =null;
+    var eventlon = null;
+    var eventlat = null;
+    var iconList = { eating: "yellow", convenience: "brown", pub: "green", transport: "gray", atm: "purple", supermarket: "white", bikerental: "blue"};
+
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        
+        // Create our "tiny" marker icon
+        var tinyIcon = new GIcon();
+        tinyIcon.image = "/images/mm_20_yellow.png";
+        tinyIcon.shadow = "/images/mm_20_shadow.png";
+        tinyIcon.iconSize = new GSize(12, 20);
+        tinyIcon.shadowSize = new GSize(22, 20);
+        tinyIcon.iconAnchor = new GPoint(6, 20);
+        tinyIcon.infoWindowAnchor = new GPoint(5, 1);
+
+        // Set up our GMarkerOptions object
+        markerOptions = { icon:tinyIcon };
+        map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(53.348867,-6.243162), 13);
+        geocoder = new GClientGeocoder();
+      }
+    }
+
+    function clearOverlayDetails() {
+        map.clearOverlays();
+      }
+
+     function locateBusiness(address,title,lat,longit) {
+        map.clearOverlays();
+        $('div#overlays').show();
+        $('div#overlaydistance').show();
+         $('div#clearoverlay').show();
+        eventlon = longit;
+        eventlat = lat;
+        point = new GLatLng(lat,longit);
+        marker = new GMarker(point);
+        map.addOverlay(marker);
+        map.addControl(new GLargeMapControl());
+        map.setCenter(point, 17);
+        GEvent.addListener(marker, "click", function() {
+          marker.openInfoWindowHtml(address + '<br>' +
+          '<b>Event:</b> ' + title);
+        });
+        marker.openInfoWindowHtml(address + '<br>' +
+          '<b>Event:</b> ' + title);
+      }
+      function placeOverlays(name,amenity,lat,longit) {
+
+        point = new GLatLng(lat,longit);
+        markerOptions.title = amenity + ' ' + name;
+        markero = new GMarker(point,markerOptions);
+        GEvent.addListener(markero, "click", function() {
+          marker.openInfoWindowHtml(name + '<br>' +
+          '<b>Amenity:</b> ' + amenity);
+        });
+        map.addOverlay(markero);
+      }
+
+  $(document).ready(function () {
+        initialize();
+        $('div#overlays').hide();
+        $('div#overlaydistance').hide();
+        $('div#clearoverlay').hide();
+        $('div#overlaydistance input:radio[name=overlay]').change(function() {
+          var rangeshow = this.value;
+          if (rangeshow == "0.1") 
+             {
+               map.closeInfoWindow();
+               map.setCenter(point,17);
+             }
+           else {
+             map.closeInfoWindow();
+             map.setCenter(point,16);
+           }
+          
+        });
+
+        $("button#removeoverlay").click(function (e) {
+          e.preventDefault();
+          clearOverlayDetails();
+        });
+
+        $("div#overlays button").click(function (e) {
+                e.preventDefault(); /* prevents form from being submitted */
+                var dist = $('div#overlaydistance input:radio[name=overlay]:checked').val()
+                $.ajax({
+                    type: "Get",
+                    url: '/overlays.json',
+                    data: { value: this.textContent, distance: dist, lon: eventlon, lat: eventlat},
+                    dataType: "json",
+                    success: function (response) {
+                        var overlays = response;
+                        var ic = iconList[(this.data.split("&")[0].split("=")[1]).replace("+","")];
+                        var imageText = "/images/mm_20_" + ic + ".png";
+                        markerOptions.icon.image = imageText;
+                        for (var i=0; i<overlays.length; i++)
+                          {
+                            var lat = overlays[i].overlay.lat;
+                            var lon = overlays[i].overlay.lon;
+                            var name = overlays[i].overlay.name;
+                            var amenity = overlays[i].overlay.amenity;
+                            placeOverlays(name,amenity,lat,lon);
+                          }
+                          point = new GLatLng(eventlat,eventlon);
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) { // handle error
+                    }
+                });
+            });
+});
+</script>
+
+<% if signed_in? %>
+ <%= render 'layouts/organizer_navigation' %>
+<% end  %>
+<div class="clear"></div>
+<div class="bigleft"><h2 >Events Details</h2></div>
+<div id="showevent"class ="fleft bigleft">
+  
+  <span id="spancontent"><%= @event.title + " on: " + @event.date.strftime("%m/%d/%Y")%></span><br/><br/>
+  Show event
+  <%= link_to_function 'location', "locateBusiness(\'#{@event.location.location_name}\',\'#{@event.title}\',#{@event.location.geo_lat},#{@event.location.geo_long})" %>
+
+  <br/><br/>
+  Description<br/>
+  <%= @event.description %><br/><br/>
+  This is a <%= @event.cost %> event organized by<br/>
+  <%= @event.organizer.organization %><br/><br/>
+  Contact event organizer by
+  <a href="mailto:<%= @event.organizer.email %>"> email</a><br/><br/>
+  More details at <%= link_to @event.event_url, @event.event_url, :remote => true %><br/>
+</div>
+
+<div class="fleft">
+ <div id="map_canvas" style="margin-left: 20px; width: 500px; height: 300px; float: left;"></div>
+
+ <div id="rightbaroverlay" class="fleft"
+ <div id="overlaydistance" class=" padleft">
+   Facilities Within  <br />
+  500<%=  radio_button_tag("overlay", "distance", "no",:checked => true, :value => 0.5) %>
+  100<%=  radio_button_tag("overlay", "distance", "yes", :value => 0.1) %>(mtrs)
+ </div>
+ <div id="overlays" >
+  <button  id="overlay">eating</button><img class="icons" src ="/images/mm_20_yellow.png" alt=" map icon"/>
+  <button  id="overlay">transport</button><img class="icons" src ="/images/mm_20_gray.png" alt=" map icon"/>
+  <button  id="overlay">atm</button><img class="icons" src ="/images/mm_20_purple.png" alt=" map icon"/>
+  <button  id="overlay">convenience</button><img class="icons" src ="/images/mm_20_brown.png" alt=" map icon"/>
+  <button  id="overlay">supermarket</button><img class="icons" src ="/images/mm_20_white.png" alt=" map icon"/>
+  <button  id="overlay">pub</button><img class="icons" src ="/images/mm_20_green.png" alt=" map icon"/>
+  <button  id="overlay">bike rental</button><img class="icons" src ="/images/mm_20_blue.png" alt=" map icon"/>
+ </div>
+ <div id="clearoverlay" >
+  <button  id="removeoverlay">Clear</button>
+ </div>
+</div>
+ 
+</div>
+<div class="clear"></div>
+<div class="bigleft">
+<% if !signed_in? %>
+ <%= link_to "Back to Event Search", select_events_path %>
+<% end  %>
+ </div>

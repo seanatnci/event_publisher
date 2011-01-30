@@ -3,27 +3,83 @@
 <head>
   <title>EventPublisher</title>
   <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag 'rails' %>
   <%= javascript_include_tag 'jquery-1.4.1' %>
+  <%= javascript_include_tag 'jquery.tooltip' %>
+  <%= javascript_include_tag 'jquery.timepicker' %>
   <%= javascript_include_tag 'jquery-ui-timepicker-addon' %>
+ 
+  
   <%= csrf_meta_tag %>
+  <script type="text/javascript">
+  jQuery.noConflict();
+  var $ = jQuery;
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+  // Reset Font Size
+  var originalFontSize = $('html').css('font-size');
+  $(".resetFont").click(function(){
+  $('html').css('font-size', originalFontSize);
+  });
+  // Increase Font Size
+  $(".increaseFont").click(function(){
+  	var currentFontSize = $('html').css('font-size');
+ 	var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*1.2;
+	$('html').css('font-size', newFontSize);
+	return false;
+  });
+  // Decrease Font Size
+  $(".decreaseFont").click(function(){
+  	var currentFontSize = $('html').css('font-size');
+ 	var currentFontSizeNum = parseFloat(currentFontSize, 10);
+    var newFontSize = currentFontSizeNum*0.8;
+	$('html').css('font-size', newFontSize);
+	return false;
+  });
+});
+
+  </script>
 </head>
-<body onload="initialize()">
+<body >
 <div id="container">
       <div class="header">
-        <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %><h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
-        <div class="round fleft">
+        <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %>
+
+        <div id="changeFont" class="fleft padleft">
+          <span>  Text Size: </span>
+          <a href="#" class="increaseFont">Larger</a>
+          <a href="#" class="decreaseFont">Smaller</a>
+          <a href="#" class="resetFont">Reset</a>
+        </div>
+        <div class="nav fright topnav">
           <ul>
-            <li><%= link_to "Home", '#' %></li>
+            <li><%= link_to "Home", '/' %></li>
             <li><%= link_to "Help", '#' %></li>
-            <li><%= link_to "Sign in", '#' %></li>
+            <li><%= link_to "Register", new_user_path %></li>
+             <% if signed_in? %>
+            <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
+            signed in as: <%= current_user.account%>
+            <% else %>
+            <li><%= link_to "Sign in", new_session_path %></li>
+
+            <% end %>
           </ul>
         </div>
+             <h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
       </div>
-      <div class="clear"</div>
+  <div class="clear"></div>
       <div class="round">
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+
+
         <%= yield %>
       </div>
     </div>
+ <%= debug(params) if Rails.env.development? %>
 
 </body>
 </html>

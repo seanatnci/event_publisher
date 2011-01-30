@@ -1,2 +1,10 @@
-<h1>Emails#edit</h1>
-<p>Find me in app/views/emails/edit.html.erb</p>
+ <h1>Update Email Contact</h1>
+
+ <%= render 'layouts/organizer_navigation' %>
+<div class="clear"></div>
+<div class="bigleft">
+
+<%= render 'form' %>
+
+<%= link_to 'Back', organizer_emails_path(@organizer) %>
+</div>

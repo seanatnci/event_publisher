@@ -1,0 +1,11 @@
+<div class="nav biggerfont smalltop">
+ 
+    <ul>
+      <li><%= link_to "New Event", new_event_path , :class => current_class?(new_event_path)%></li>
+      <li><%= link_to "My Contacts", organizer_emails_path(@organizer), :class => current_class?(organizer_emails_path(@organizer))  %></li>
+      <li><%= link_to "My Events", events_path ,:class => current_class?(events_path) %></li>
+      <li><%= link_to "My Account", edit_organizer_path(@organizer), :class => current_class?(edit_organizer_path(@organizer)) %></li>
+      <li><%= link_to 'New Location', new_location_path ,:class => current_class?(new_location_path) %></li>
+    </ul>
+  
+</div>

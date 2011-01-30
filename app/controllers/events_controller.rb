@@ -1,28 +1,40 @@
 class EventsController < ApplicationController
+  before_filter :authenticate, :only => [:new, :create, :destroy, :edit, :index]
+
+  class StoreSelection
+    attr_accessor :date, :category
+    include Singleton
+  end
+
   def new
     @event = Event.new()
     @locations = Location.all
     @costs = ["Free","Paid"]
     @categories = Category.all
-    @organizer = Organizer.find(1)
-    @event.organizer_id = @organizer.id
+    @signed_in_user = current_user
+    @organizer = Organizer.find_by_user(@signed_in_user.account)
+    @event.organizer = @organizer
+    @event.location_id = @organizer.primary_event_location
+    @event.event_url = @organizer.event_home_page
   end
 
   def create
-    @event = Event.new(params[:event])
+    @organizer = Organizer.find_by_user(current_user.account)
+    @event = Event.setnew(params[:event],@organizer)
+    @send_tweet = params[:twitter][:tweet]
     
     @locations = Location.all
     @costs = ["Free","Paid"]
     @categories = Category.all
     
-       respond_to do |format|
-      if @event.save
-        format.html { 
-          twit = TwitterSend.new()
-          handle = @event.organizer.twitter_handle
-          message = @event.title + " at " + @event.location.location_name + " on " + @event.date.strftime("%d/%m/%Y")
-          handle = "seantwitter"
-          twit.with_message(handle,message)
+      respond_to do |format|
+        if @event.save
+         format.html {
+          TwitterSend.new(@event) if @send_tweet == 'yes' ## maybe should be singleton ?? only if same handle
+          @organizer.emails.each do
+            | em |
+            UserMailer.event_email(@event,em.email).deliver
+          end
           redirect_to(@event, :notice => 'Event was successfully created.') }
         format.xml  { render :xml => @event, :status => :created, :event => @event }
       else
@@ -33,10 +45,20 @@ class EventsController < ApplicationController
   end
 
   def show
+    @event = Event.find(params[:id])
+    if signed_in?
+      @organizer = Organizer.find_by_user(current_user.account) 
+    end
+        
   end
-
+  
+  def detail
+    @event = Event.find(params[:id])
+  end
+  
   def index
-    @events = Event.all
+    @organizer = Organizer.find_by_user(current_user.account)
+    @events = Event.find(:all, :conditions => "organizer_id = #{@organizer.id}")
    
     respond_to do |format|
       format.html # index.html.erb
@@ -45,10 +67,82 @@ class EventsController < ApplicationController
     end
   end
 
+def selectevents
+    @date = Date.today
+    begin
+      @events = Event.find(:all, :conditions => "date >= #{@date}")
+    rescue => e
+      redirect_to(error_path, :notice => "Error: #{e.message}")
+    end
+    @dateselect = ["Week","1 Month","2 Months"]
+    @categories = Category.all
+    @store = StoreSelection.instance
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
+
+  def viewevents
+    @date = Date.today
+    @date = @date.strftime('%Y-%m-%d %H:%M:%S')
+    @selectDate = Date.today.to_time.advance( :weeks => 1) if params[:store][:date] =="Week"
+    @selectDate = Date.today.to_time.advance( :months => 1) if params[:store][:date] =="1 Month"
+    @selectDate = Date.today.to_time.advance( :months => 2) if params[:store][:date] =="2 Months"
+    @selectDate = @selectDate.to_date
+    @selectDate = @selectDate.strftime('%Y-%m-%d %H:%M:%S')
+    @events=Event.find(:all, :conditions => "date >= '#{@date}' and date <= '#{@selectDate}'")
+    @dateselect = ["Week","1 Month","2 Months"]
+    @categories = Category.all
+    @store = StoreSelection.instance
+
+    respond_to do |format|
+      format.html # index.html.erb
+    end
+  end
 
   def edit
+    @event = Event.find(params[:id])
+    @organizer = Organizer.find(@event.organizer_id) ## raise exception if signed in not organizer
+    @locations = Location.all
+    @costs = ["Free","Paid"]
+    @categories = Category.all
   end
 
-  def destroy
+  def update
+    @event = Event.find(params[:id])
+
+    params[:event][:date]=DateTime.strptime(params[:event][:date],"%m/%d/%Y") if params[:event][:date].length == 10
+    params[:event][:end_date]=DateTime.strptime(params[:event][:end_date],"%m/%d/%Y") if params[:event][:end_date].length == 10
+
+    @organizer = Organizer.find(@event.organizer_id)
+    @locations = Location.all
+    @costs = ["Free","Paid"]
+    @categories = Category.all
+    if @event.update_attributes(params[:event])
+      flash[:success] = "Event updated."
+      redirect_to events_path
+    else
+      @title = "Edit Event"
+      render 'edit'
+    end
   end
+
+  # DELETE /events/1
+  # DELETE /events/1.xml
+  def destroy
+    @event = Event.find(params[:id])
+    @event.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(events_url) }
+      format.xml  { head :ok }
+    end
+  end
+
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
 end
