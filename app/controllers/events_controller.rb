@@ -70,7 +70,7 @@ class EventsController < ApplicationController
 def selectevents
     @date = Date.today
     begin
-      @events = Event.find(:all, :conditions => "date >= #{@date}")
+      @events = Event.find(:all, :conditions => "date >= '#{@date}'")
     rescue => e
       redirect_to(error_path, :notice => "Error: #{e.message}")
     end
