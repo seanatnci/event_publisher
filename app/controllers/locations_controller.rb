@@ -1,4 +1,6 @@
 class LocationsController < ApplicationController
+  before_filter :setsession
+
   def new
     @location = Location.new()
     if signed_in?
@@ -35,7 +37,7 @@ def create
 
  def index
     @locations = Location.all
-
+    logger.debug @googleapi
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @locations }

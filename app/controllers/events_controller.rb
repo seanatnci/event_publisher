@@ -5,7 +5,7 @@ class EventsController < ApplicationController
     attr_accessor :date, :category
     include Singleton
   end
-
+  
   def new
     @event = Event.new()
     @locations = Location.all
@@ -77,20 +77,25 @@ def selectevents
     @dateselect = ["Week","1 Month","2 Months"]
     @categories = Category.all
     @store = StoreSelection.instance
-
+    
     respond_to do |format|
       format.html # index.html.erb
+      format.xml  { render :xml => @events.to_xml( :skip_instruct => true, :except => [:id,:featured,:organizer_id,:location_id,:category_id,:updated],:include => :location )
+     }
+      format.json  { render :json => @events.to_json( :skip_instruct => true, :except => [:id,:featured,:organizer_id,:location_id,:category_id,:updated],:include => :location )
+     }
     end
   end
 
   def viewevents
     @date = Date.today
     @date = @date.strftime('%Y-%m-%d %H:%M:%S')
-    @selectDate = Date.today.to_time.advance( :weeks => 1) if params[:store][:date] =="Week"
-    @selectDate = Date.today.to_time.advance( :months => 1) if params[:store][:date] =="1 Month"
-    @selectDate = Date.today.to_time.advance( :months => 2) if params[:store][:date] =="2 Months"
-    @selectDate = @selectDate.to_date
-    @selectDate = @selectDate.strftime('%Y-%m-%d %H:%M:%S')
+    @selectDate = Date.today.to_time.advance( :weeks => 1) 
+#    @selectDate = Date.today.to_time.advance( :weeks => 1) if params[:store][:date] =="Week"
+#    @selectDate = Date.today.to_time.advance( :months => 1) if params[:store][:date] =="1 Month"
+#    @selectDate = Date.today.to_time.advance( :months => 2) if params[:store][:date] =="2 Months"
+#    @selectDate = @selectDate.to_date
+#    @selectDate = @selectDate.strftime('%Y-%m-%d %H:%M:%S')
     @events=Event.find(:all, :conditions => "date >= '#{@date}' and date <= '#{@selectDate}'")
     @dateselect = ["Week","1 Month","2 Months"]
     @categories = Category.all
@@ -98,6 +103,8 @@ def selectevents
 
     respond_to do |format|
       format.html # index.html.erb
+      format.xml  { render :xml => @events }
+      format.json  { render :json => @events }
     end
   end
 

@@ -44,15 +44,7 @@
 </head>
 <body >
 <div id="container">
-      <div class="header">
-        <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %>
-
-        <div id="changeFont" class="fleft padleft">
-          <span>  Text Size: </span>
-          <a href="#" class="increaseFont">Larger</a>
-          <a href="#" class="decreaseFont">Smaller</a>
-          <a href="#" class="resetFont">Reset</a>
-        </div>
+      <div class="header">  
         <div class="nav fright topnav">
           <ul>
             <li><%= link_to "Home", '/' %></li>
@@ -67,9 +59,20 @@
             <% end %>
           </ul>
         </div>
-             <h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
+        <div class="clear"></div>
+        <div class="fleft">
+           <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %>
+        </div>
+         <h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
+        <div id="changeFont" class="fright">
+          <span>  Text Size: </span>
+          <a href="#" class="increaseFont">Larger</a>
+          <a href="#" class="decreaseFont">Smaller</a>
+          <a href="#" class="resetFont">Reset</a>
+        </div>
+        <div class="clear"></div>
       </div>
-  <div class="clear"></div>
+      <div class="clear"></div>
       <div class="round">
         <% flash.each do |key, value| %>
           <div class="flash <%= key %>"><%= value %></div>

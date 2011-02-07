@@ -6,9 +6,10 @@ gem 'authlogic'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'sqlite3', :require => 'sqlite3'
+#gem 'sqlite3', :require => 'sqlite3'
 gem 'mysql2', :require => 'mysql2'
 gem 'mysql', :require => 'mysql'
+#gem 'pg','0.9.0', :require => 'pg'
 #gem 'il8n', '0.4.2'
 
 gem 'twitter', :require => 'twitter'

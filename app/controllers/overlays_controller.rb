@@ -36,6 +36,7 @@ class OverlaysController < ApplicationController
     @overlays.each do
      |ol |
      ol.name = ol.name.gsub("&apos;","'")
+     ol.name = ol.name.gsub("&amp;","&")
     end
 
     respond_to do |format|
