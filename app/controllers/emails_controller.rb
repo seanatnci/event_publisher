@@ -19,7 +19,7 @@ class EmailsController < ApplicationController
      # assumes format last_name,first_name,email_address
      #
      @organizer = Organizer.find(params[:id])
-     @parsed_file=CSV.parse(params[:dump][:file])
+     @parsed_file=CSV::Reader.parse(params[:dump][:file])
      n=0
      @parsed_file.each  do |row|
        e=Email.new()

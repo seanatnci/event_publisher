@@ -147,11 +147,10 @@ button#removeoverlay { color: blue; margin-left:10px; width:100px;}
 button#overlay { width: 100px; margin-left:10px;}
 h1#titlehead {  width: 260px;
                 margin: 0;
-                line-height: 60px;
                 padding: 6px;
                 margin-left: 5px;
                 font-family: chiller,georgia,verdana,serif  ;
-                font-size: 54px;
+                font-size: 3.6em;
                 background-color: #669966; 
                 color:lightpink;
                 -moz-border-radius: 15px;
