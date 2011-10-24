@@ -16,6 +16,7 @@ EventPublisher::Application.routes.draw do
   match 'organizer/:id/emails/emaillist' => 'emails#emaillist', :as => :emailupload, :via => :get
   match 'events/viewevents' => 'events#viewevents', :as => :view_events, :via => :post
   match 'events/selectevents' => 'events#selectevents', :as => :select_events, :via => :get
+  match 'locations/findlocations' => 'locations#findlocations', :as => :find_locations, :via => :get
 
   #resources :emails
   #match 'organizers/:id/emails/:id' => 'emails#destroy', :as => :emaildelete, :via => :delete
