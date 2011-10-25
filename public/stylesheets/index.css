@@ -190,6 +190,7 @@ div#comments
 div.paddeddiv { padding: 30px;}
 p.paddy { padding: 10px; }
 p.flatbottom { padding-bottom: 0px; padding-top:2px;}
+p.tiny { font-size: 8px;}
 div.flash { color: green;}
 #notice {
   color: green;

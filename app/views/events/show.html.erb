@@ -136,6 +136,8 @@
   Contact organizer by
   <a href="mailto:<%= @event.organizer.email %>"> email</a><br/><br/>
   More details at <%= link_to  "Event URL",@event.event_url, :remote => true, :class => :smallerpara %><br/>
+  <img src="http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/<%= @event.id %>'&amp;size=100x100" alt="QR Code"/>
+  <p class="tiny">Right click to save QR Code</p>
 </div>
 
 <div class="fleft">
