@@ -130,12 +130,11 @@
   <br/>
   <span class="spancontent">Description</span>
   <p class="smallerpara">
-  [<%= @event.description %>]<br/></p><br/>
+  [<%= @event.description %>]</p><br/>
   This is a <%= @event.cost %> event organized by<br/>
-  <%= @event.organizer.organization %><br/><br/>
-  Contact organizer by
-  <a href="mailto:<%= @event.organizer.email %>"> email</a><br/><br/>
-  More details at <%= link_to  "Event URL",@event.event_url, :remote => true, :class => :smallerpara %><br/>
+  <%= @event.organizer.organization %><br/>
+  [<a href="mailto:<%= @event.organizer.email %>"> email</a>] [
+  <%= link_to  "event URL",@event.event_url, :remote => true %>]<br/>
   <img src="http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/<%= @event.id %>'&amp;size=100x100" alt="QR Code"/>
   <p class="tiny">Right click to save QR Code</p>
 </div>
