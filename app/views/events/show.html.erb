@@ -135,7 +135,7 @@
   <%= @event.organizer.organization %><br/>
   [<a href="mailto:<%= @event.organizer.email %>"> email</a>] [
   <%= link_to  "event URL",@event.event_url, :remote => true %>]<br/>
-  <img src="http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/<%= @event.id %>'&amp;size=100x100" alt="QR Code"/>
+  <img src="http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/event/<%= @event.id %>'&amp;size=100x100" alt="QR Code"/>
   <p class="tiny">Right click to save QR Code</p>
 </div>
 
