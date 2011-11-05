@@ -37,7 +37,7 @@ class EventsController < ApplicationController
           TwitterSend.new(@event) if @send_tweet == 'yes' ## maybe should be singleton ?? only if same handle
           @organizer.emails.each do
             | em |
-            #UserMailer.event_email(@event,em.email).deliver
+              UserMailer.event_email(@event,em.email).deliver
           end
           redirect_to(@event, :notice => 'Event was successfully created.') }
         format.xml  { render :xml => @event, :status => :created, :event => @event }
