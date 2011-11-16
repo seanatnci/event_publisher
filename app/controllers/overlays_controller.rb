@@ -48,6 +48,7 @@ class OverlaysController < ApplicationController
     respond_to do |format|
        format.xml  { render :xml => @overlays }
        format.json  { render :json => @overlays }
+       format.js   { render :json => @overlays, :callback => params[:callback] }
     end
 
   end
