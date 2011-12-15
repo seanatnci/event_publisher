@@ -47,6 +47,8 @@ class OrganizersController < ApplicationController
       render 'edit'
     end
   end
+  
+
 private
 
     def authenticate

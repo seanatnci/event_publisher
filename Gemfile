@@ -4,6 +4,8 @@ gem 'rails', '3.0.1'
 
 gem 'authlogic'
 
+gem 'flickr_fu'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 #gem 'sqlite3', :require => 'sqlite3'

@@ -61,4 +61,12 @@ class OverlaysController < ApplicationController
     end
 
   end
+
+  def getpictures
+    require 'flickr_fu'
+    flickr = Flickr.new( Rails.root.to_str + "/config/flickr.yml")
+    photo_count = 100
+    pictures = flickr.photos.search(:tags => 'dalkey').values_at(0..(photo_count - 1))
+    @photos = pictures.in_groups_of(10)
+  end
 end

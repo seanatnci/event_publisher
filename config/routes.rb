@@ -22,6 +22,7 @@ EventPublisher::Application.routes.draw do
   #match 'organizers/:id/emails/:id' => 'emails#destroy', :as => :emaildelete, :via => :delete
   resources :overlays
   match 'overlays' => 'overlays#overlays'
+  match 'pictures' => 'overlays#getpictures'
   resources :organizers do
     resources :emails
   

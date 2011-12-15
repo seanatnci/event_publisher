@@ -1,0 +1,40 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+<style>
+  .flickr ul
+{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+}
+.flickr ul li
+{
+        border-bottom: 0;
+        margin: 0;
+        padding: 0;
+}
+
+.flickr_photo
+{
+        width: 75px;
+        height: 75px;
+        padding: 12px 10px 32px 13px;
+        margin: 0;
+        background: #fff url(../images/pixellated/polaroid.jpg) no-repeat;
+}
+
+</style>
+<h1>Pictures</h1>
+<div class="flickr">
+  <ul>
+    <% @photos.each do |row| %>
+      <li>
+        <% row.each do |photo| %>
+             <%=  link_to(image_tag(photo.url(:square), :class => 'flickr_photo', :title => photo.title, :border => 0 ), photo.url_photopage) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</div>
