@@ -12,7 +12,7 @@ gem 'flickr_fu'
 gem 'mysql2', :require => 'mysql2'
 gem 'mysql', :require => 'mysql'
 #gem 'pg','0.9.0', :require => 'pg'
-#gem 'il8n', '0.4.2'
+gem 'rake', '0.9.2.2'
 
 gem 'twitter', :require => 'twitter'
 gem 'twitter_oauth', :require => 'twitter_oauth'

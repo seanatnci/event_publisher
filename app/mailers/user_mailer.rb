@@ -3,6 +3,8 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @user = user
     @url  = "http://jobinireland.com/"
+    attachments.inline['rails.png'] = File.read(Rails.root.to_str + '/public/images/rails.png')
+
     mail(:to => user.email,
          :subject => "Welcome to My Awesome Site")
   end
