@@ -33,9 +33,7 @@
 
      function locateBusiness(address,title,lat,longit) {
         map.clearOverlays();
-        $('div#overlays').show();
-        $('div#overlaydistance').show();
-         $('div#clearoverlay').show();
+        $('div#rightbaroverlay').show();
         eventlon = longit;
         eventlat = lat;
         point = new GLatLng(lat,longit);
@@ -64,9 +62,8 @@
 
   $(document).ready(function () {
         initialize();
-        $('div#overlays').hide();
-        $('div#overlaydistance').hide();
-        $('div#clearoverlay').hide();
+        $('div#rightbaroverlay').hide();
+      
         $('div#overlaydistance input:radio[name=overlay]').change(function() {
           var rangeshow = this.value;
           if (rangeshow == "0.1") 

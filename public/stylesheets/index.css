@@ -183,7 +183,8 @@ h1#titlehead {  width: 260px;
                 color:lightpink;
                 -moz-border-radius: 15px;
                 border-radius: 15px;}
-div#overlays { margin-top: 2px; width: 134px;}
+div#overlays { margin-top: 2px; width: 134px; }
+div#rightbaroverlay {display: none;}
 div.bigleft {margin-left: 70px;}
 div.tinyleft {margin-left:5px;}
 
