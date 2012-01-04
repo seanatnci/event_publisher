@@ -62,7 +62,7 @@ class Event < ActiveRecord::Base
     return @event
   end
   def fixdatesfromdatepicker(date,end_date)
-    self.date=DateTime.strptime(date,"%d/%m/%Y") if self.date.nil?
-    self.end_date=DateTime.strptime(end_date,"%d/%m/%Y") if self.end_date.nil?
+    self.date=DateTime.strptime(date,"%m/%d/%Y") if self.date.nil?
+    self.end_date=DateTime.strptime(end_date,"%m/%d/%Y") if self.end_date.nil?
   end
 end

@@ -5,8 +5,8 @@
 <script  type="text/javascript">
         $(document).ready(function () {    
         $("#event_organizer_id").hide();      
-        $("#event_date").datepicker({dateFormat: 'dd/mm/yy'});
-        $("#event_end_date").datepicker({dateFormat: 'dd/mm/yy'});
+        $("#event_date").datepicker({dateFormat: 'mm/dd/yy'});
+        $("#event_end_date").datepicker({dateFormat: 'mm/dd/yy'});
          $("#event_date").change( function(){
            var sdate = $("#event_date").val();
            $("#event_end_date").val(sdate);
