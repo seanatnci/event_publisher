@@ -1,6 +1,6 @@
 <script type="text/javascript">
 			$(document).ready(function() {
-				$('table').Scrollable(120, 250);
+				$('table').Scrollable(120, 260);
 			});
 </script>
 <div class="fleft">
@@ -13,7 +13,7 @@
         Twitter and email. Registration is required to begin entering your events.
          <%= link_to 'Registration', new_user_path  %> is simple and straightforward and you'll be
         up and running in no time.
-    </p> 
+    </p> <br/>
     <p > Events can be searched for and viewed within the application. No registration
         is required to view events. Select the View Events button below to view upcoming
         events in Dublin.
@@ -22,6 +22,7 @@
   </div>
 <div class="smalltop smallleft boxxy">
   <h2>Featured Event</h2>
+  <div class =" smallpad">
    <% if !@event.nil? %>
     <span class="spancontent"><%= @event.title %> on:  <%=  @event.date.strftime("%d %b %Y")%></span><br/>
 
@@ -38,12 +39,13 @@
       your event to appear on this home page please contact us.
     </p>
     <% end %>
+  </div>
 </div>
 </div>
 <div class="fleft" style="width:260px;">
    <div class="tinyleft actions">
       <h3>Upcoming Events</h3>
-      <div class="borderstyle">
+      <div class="borderstyle" style="width:260px">
            <table>
             <thead>
              <tr>
