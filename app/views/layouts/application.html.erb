@@ -4,8 +4,11 @@
   <title>EventPublisher</title>
 
   <%= stylesheet_link_tag 'index' %>
+  <%= stylesheet_link_tag 'fullcalendar' %>
+  <%= stylesheet_link_tag 'fullcalendar.print' %>
   <%= javascript_include_tag 'jquery-1.4.1' %>
   <%= javascript_include_tag 'jquery.timepicker' %>
+  <%= javascript_include_tag 'fullcalendar.min' %>
   <script type="text/javascript" src="http://www.webtoolkit.info/djs/webtoolkit.scrollabletable.js"></script>
   <script type="text/javascript" src="http://www.webtoolkit.info/djs/webtoolkit.jscrollable.js"></script>
 
@@ -44,32 +47,26 @@
 <body >
 <div id="container">
       <div class="header">  
-        <div class="nav fright topnav">
+        
+        <div class="fleft">
+           <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %>
+        </div>
+         <h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
+         <div class="nav fleft topnav">
           <ul>
             <li><%= link_to "Home", '/' %></li>
             <li><%= link_to "Help", '#' %></li>
             <li><%= link_to "Register", new_user_path %></li>
              <% if signed_in? %>
-            <li><%= link_to "Sign out", signout_path, :method => :delete %></li>
-            signed in as: <%= current_user.account%>
+            <li><%= link_to "Sign out ", signout_path, :method => :delete %></li>
+            welcome [<%= link_to current_user.account, events_path %>]
             <% else %>
             <li><%= link_to "Sign in", new_session_path %></li>
 
             <% end %>
           </ul>
         </div>
-        <div class="clear"></div>
-        <div class="fleft">
-           <%= image_tag("tccd.jpg", :alt => "Event Publisher", :class => "round fleft") %>
-        </div>
-         <h1 id="titlehead" class="fleft">Dublin Event Publisher</h1>
-        <div id="changeFont" class="fright">
-          <span>  Text Size: </span>
-          <a href="#" class="increaseFont">Larger</a>
-          <a href="#" class="decreaseFont">Smaller</a>
-          <a href="#" class="resetFont">Reset</a>
-        </div>
-        <div class="clear"></div>
+        
       </div>
       <div class="clear"></div>
       <div class="round">
@@ -79,7 +76,14 @@
 
 
         <%= yield %>
+      
+      <div class="smalltop">
+          <span>  Text Size: </span>
+          <a href="#" class="increaseFont">Larger</a>
+          <a href="#" class="decreaseFont">Smaller</a>
+          <a href="#" class="resetFont">Reset</a>
       </div>
+     </div>
     </div>
  <%= debug(params) if Rails.env.development? %>
 

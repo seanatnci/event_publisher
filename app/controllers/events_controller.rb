@@ -5,6 +5,10 @@ class EventsController < ApplicationController
     attr_accessor :date, :category
     include Singleton
   end
+
+  class FullCalander
+    attr_accessor :id, :start, :end, :allDay, :url, :title
+  end
   
   def new
     @event = Event.new()
@@ -116,6 +120,30 @@ def selectevents
       format.html # index.html.erb
       format.xml  { render :xml => @events }
       format.json  { render :json => @events }
+    end
+  end
+
+  def calanderevents
+    @date = Date.today
+    @date = @date.strftime('%Y-%m-%d %H:%M:%S')
+    @selectDate = Date.today.to_time.advance( :weeks => 1)
+    @events=Event.find(:all, :conditions => "date >= '#{@date}' and date <= '#{@selectDate}'" , :order => 'date')
+    @calevents = []
+    @events.each do | event |
+      calevent = FullCalander.new()
+      calevent.id = event.id
+      calevent.title = event.title
+      calevent.start = event.date.strftime('%Y-%m-%d %H:%M:%S')
+      calevent.end = event.end_date.strftime('%Y-%m-%d %H:%M:%S')
+      calevent.url = event.event_url
+      calevent.allDay = false
+      @calevents << calevent
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @calevents }
+      format.json  { render :json => @calevents }
     end
   end
 

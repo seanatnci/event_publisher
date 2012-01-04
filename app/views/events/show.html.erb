@@ -122,7 +122,7 @@
  <%= render 'layouts/organizer_navigation' %>
 <% end  %>
 <div class="clear"></div>
-<div class="bigleft"><h2 >Events Details</h2></div>
+<div class="bigleft"><h3>Events Details</h3></div>
 <div id="showevent" class ="fleft bigleft">
   
   <span class="spancontent"><%= @event.title + " on: " + @event.date.strftime("%d %b %Y")%></span><br/>
@@ -142,7 +142,7 @@
 </div>
 
 <div class="fleft">
- <div id="map_canvas" style="margin-left: 20px; width: 500px; height: 350px; float: left;"></div>
+ <div id="map_canvas" class="smalltop"style="margin-left: 20px; width: 400px; height: 400px; float: left;"></div>
 
  <div id="rightbaroverlay" class="fleft">
  <div id="overlaydistance" class=" padleft">

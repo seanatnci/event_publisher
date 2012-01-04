@@ -4,7 +4,8 @@
 
  <div class="clear"></div>
  <div class="bigleft">
-   <h2>Email Contacts</h2>
+   <h3>Email Contacts</h3>
+   <br/>
 <table>
   <tr>
     <th>Last Name</th>
@@ -23,7 +24,7 @@
     <td><%= link_to "Delete",organizer_email_path(@organizer,em) ,:confirm => 'Are you sure?', :method => :delete%></td>
   </tr>
 <% end %>
-</table>
+</table><br/><br/>
 
  
 <%= link_to 'New Email Contact', new_organizer_email_path(@organizer) %> |

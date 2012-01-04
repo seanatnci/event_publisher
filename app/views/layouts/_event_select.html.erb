@@ -1,6 +1,6 @@
 
 <div class="fleft selectionbox">
-  <h2>Events </h2>
+  <h3>Events </h3>
   <%= form_for @store, :as => :store, :url => view_events_path, :html => {:method => :post} do |f| %>
   <div class="field">
       <label>Select Category </label><br/>
@@ -38,3 +38,37 @@
 </table> 
   </div>
 <div class="clear"></div>
+<div id="calendar" style="width: 900px;margin: 0 auto;"></div>
+<script>
+
+                var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+                $.ajax({
+                    type: "Get",
+                    url: 'events/calanderevents.json',
+                    dataType: "json",
+                    success: function (response) {
+                        var overlays = response;
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                      // handle error
+                      var i = 0;
+                    }
+                });
+
+
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: false,
+			events: "http://localhost:3000/events/calanderevents.json"
+		});
+
+
+</script>

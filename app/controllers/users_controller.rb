@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [ :show, :destroy, :update, :edit, :index]
+
   # GET /users
   # GET /users.xml
   def index
@@ -83,4 +85,9 @@ class UsersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  private
+
+    def authenticate
+      deny_access unless signed_in?
+    end
 end

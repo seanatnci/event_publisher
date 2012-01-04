@@ -1,6 +1,7 @@
-<h2>Upload Contacts File</h2>
+
 <%= render 'layouts/organizer_navigation' %><br/>
 <div class="paddeddiv clear">
+  <h3>Upload Contacts File</h3>
 <%= form_for :dump, :url=>{ :action=>"csvup"},
                     :html => { :multipart => true } do |f| %>
  <table>
