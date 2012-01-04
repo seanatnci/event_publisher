@@ -127,7 +127,8 @@ def selectevents
     @date = Date.today
     @date = @date.strftime('%Y-%m-%d %H:%M:%S')
     @selectDate = Date.today.to_time.advance( :weeks => 1)
-    @events=Event.find(:all, :conditions => "date >= '#{@date}' and date <= '#{@selectDate}'" , :order => 'date')
+    @events=Event.find(:all, :conditions => "date >= '#{@date}'", :order => 'date')
+#    @events=Event.find(:all, :conditions => "date >= '#{@date}' and date <= '#{@selectDate}'" , :order => 'date')
     @calevents = []
     @events.each do | event |
       calevent = FullCalander.new()
