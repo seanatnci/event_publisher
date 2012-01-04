@@ -114,17 +114,22 @@ table tbody tr:nth-child(even)    { background-color:#fff; }
 table th { background-color: darkorange; padding: 3px;}
 table td { padding: 3px; font-size: 1.0em;}
 
-.mainnav ul li a{
+.buttsel , .mainnav ul li a{
     -moz-border-radius: 11px 11px 11px 11px;
     -moz-box-sizing: content-box;
     border: 1px solid #BBBBBB;
     background-color: olivedrab;
-    color:aliceblue;
+    color:white !important;
     cursor: pointer;
     font: 16px/18px sans-serif;
     padding: 2px 8px !important;
     text-decoration: none;
     text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.buttsel:hover {
+  background-color:yellowgreen !important;
+  text-decoration: none !important;
 }
 
 a.listings_button {

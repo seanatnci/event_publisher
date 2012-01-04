@@ -15,8 +15,10 @@
 
   </div>
   <% end %>
+  <a href="#" id="gridview" class="buttsel">Grid View</a>
+  <a href="#" id="calview" class="buttsel">Calendar View</a>
 </div>
-  <div class="fleft smallleft bigtop">
+  <div id="grid" class="fleft smallleft bigtop">
    <table>
    <tr>
     <th>Title</th>
@@ -37,27 +39,17 @@
 <% end %>
 </table> 
   </div>
+
+<div id="calendar" style="float:left;width: 820px;margin: 0 auto;"></div>
 <div class="clear"></div>
-<div id="calendar" style="width: 900px;margin: 0 auto;"></div>
 <script>
 
                 var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
-                $.ajax({
-                    type: "Get",
-                    url: 'events/calanderevents.json',
-                    dataType: "json",
-                    success: function (response) {
-                        var overlays = response;
-
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                      // handle error
-                      var i = 0;
-                    }
-                });
+                var url = document.URL.split('/');
+                urlpost='http://'+url[2]+'/events/calanderevents.json'
 
 
 		$('#calendar').fullCalendar({
@@ -67,8 +59,23 @@
 				right: 'month,agendaWeek,agendaDay'
 			},
 			editable: false,
-			events: "http://localhost:3000/events/calanderevents.json"
+			events: urlpost
 		});
-
+                 $(document).ready(function(){
+                   $('#calendar').hide();
+                   $('#gridview').hide();
+                   $("#calview").click(function(){
+                     $('#calendar').show();
+                     $('#grid').hide();
+                     $('#calview').hide();
+                     $('#gridview').show();
+                    });
+                    $("#gridview").click(function(){
+                     $('#calendar').hide();
+                     $('#grid').show();
+                     $('#calview').show();
+                     $('#gridview').hide();
+                    });
+                 });
 
 </script>
