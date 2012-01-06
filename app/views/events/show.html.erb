@@ -1,4 +1,5 @@
-<%= render 'layouts/googleapi' %>
+<%= stylesheet_link_tag 'tooltip' %>
+
 <script type="text/javascript">
     var map = null;
     var geocoder = null;
@@ -26,12 +27,22 @@
         geocoder = new GClientGeocoder();
       }
     }
+    function loadMaps() {
+             google.load("maps", "2.x", {"callback" : initialize});
+    }
 
+    function loadScript() {
+      var script = document.createElement("script");
+      script.src = "https://www.google.com/jsapi?key=<%=@googleapi%>&callback=loadMaps";
+      script.type = "text/javascript";
+      document.getElementsByTagName("head")[0].appendChild(script);
+      }
+      
     function clearOverlayDetails() {
         map.clearOverlays();
       }
 
-     function locateBusiness(address,title,lat,longit) {
+    function locateBusiness(address,title,lat,longit) {
         map.clearOverlays();
         $('div#rightbaroverlay').show();
         eventlon = longit;
@@ -61,7 +72,28 @@
       }
 
   $(document).ready(function () {
-        initialize();
+        window.onload = loadScript;
+      
+        $(".tooltips").hover(
+			function() { $(this).contents("span:last-child").css({ display: "block" }); },
+			function() { $(this).contents("span:last-child").css({ display: "none" }); }
+		);
+
+	$(".tooltips").mousemove(function(e) {
+			var mousex = e.pageX + 10;
+			var mousey = e.pageY + 5;
+			$(this).contents("span:last-child").css({  top: mousey, left: mousex });
+		});
+
+        $("#QRCODE").attr({ src: "http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/event/<%= @event.id %>'&amp",
+          title: "",alt: "QR Code"});
+
+        if(('#QRCODE').length > 0) {
+          console.log("image exists");
+        } else {
+          alert("image doesn't exist");
+        }
+
         $('div#rightbaroverlay').hide();
       
         $('div#overlaydistance input:radio[name=overlay]').change(function() {
@@ -134,9 +166,13 @@
   <%= @event.organizer.organization %><br/>
   [<a href="mailto:<%= @event.organizer.email %>"> email</a>] [
   <%= link_to  "event URL",@event.event_url, :remote => true %>]<br/>
-  <img src="http://api.qrserver.com/v1/create-qr-code/?data='http://events-store.appspot.com/event/<%= @event.id %>'&amp;size=100x100" alt="QR Code"/>
-  <p class="tiny">Right click to save QR Code</p>
-</div>
+  <div class="tooltips"style="width: 100px;">
+  <img id="QRCODE" height="100" width="100"/>
+  <p class="tiny" title="">Right click to save QR Code</p>
+  <span class="tools tooltip-style1">
+    Use this QR code in any marketing material to allow users save this event to their smartphone</span>
+  </div>
+  </div>
 
 <div class="fleft">
  <div id="map_canvas" class="smalltop"style="margin-left: 20px; width: 400px; height: 400px; float: left;"></div>

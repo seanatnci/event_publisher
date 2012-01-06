@@ -214,7 +214,7 @@ div#comments
 div.paddeddiv { padding: 30px;}
 
 p.flatbottom { padding-bottom: 0px; padding-top:2px;}
-p.tiny { font-size: 8px;}
+p.tiny { font-size: 8px;margin: 0px;}
 div.flash { color: green;}
 #notice {
   color: green;
