@@ -1,8 +1,15 @@
-
+<%= javascript_include_tag 'jquery.tweet' %>
 <script type="text/javascript">
 			$(document).ready(function() {
 				$('table').Scrollable(120, 260);
-			});
+                                $("#twitter_update_list").tweet({
+                                  avatar_size: 16,
+                                  count: 5,
+                                  username: "eventsindublin",
+                                  loading_text: "searching twitter..."
+        });
+
+                                });
 </script>
 <div class="fleft">
   <div class="smallleft boxxy bigtop">
@@ -70,13 +77,13 @@
       </div>
    </div>
   
-   <div id="twitter_div" class="displayboxxy">
+   
+<div id="twitter_div" class="displayboxxy">
       <h3 class="sidebar-title">Twitter Updates</h3>
       <ul id="twitter_update_list"></ul>
       <a href="http://twitter.com/eventsindublin" id="twitter-link" style="display:block;text-align:right;">follow us on twitter</a>
-  </div>
 </div>
-<script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-<script type="text/javascript" src="http://twitter.com/statuses/user_timeline/eventsindublin.json?callback=twitterCallback2&amp;count=5"></script>
+</div>
+
 
 <div class="clear"></div>
