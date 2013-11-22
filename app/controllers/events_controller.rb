@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :destroy, :edit, :index]
+  before_filter :optionally_set_cors_headers
 
   class StoreSelection
     attr_accessor :date, :category
@@ -192,4 +193,11 @@ def selectevents
     def authenticate
       deny_access unless signed_in?
     end
+    
+    def optionally_set_cors_headers
+    return unless params[:enable_cors_headers]
+    headers['Access-Control-Allow-Origin'] = request.headers['Origin'] if request.headers['Origin']
+    headers['Access-Control-Allow-Credentials'] = 'true'
+    headers['Access-Control-Allow-Headers'] = request.headers['Access-Control-Request-Headers'] if request.headers['Access-Control-Request-Headers']
+  end
 end
