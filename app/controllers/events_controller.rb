@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate, :only => [:new, :create, :destroy, :edit, :index]
-  before_filter :optionally_set_cors_headers
+  after_filter :cors_set_access_control_headers
 
   class StoreSelection
     attr_accessor :date, :category
@@ -194,10 +194,14 @@ def selectevents
       deny_access unless signed_in?
     end
     
-    def optionally_set_cors_headers
-    return unless params[:enable_cors_headers]
-    headers['Access-Control-Allow-Origin'] = request.headers['Origin'] if request.headers['Origin']
-    headers['Access-Control-Allow-Credentials'] = 'true'
-    headers['Access-Control-Allow-Headers'] = request.headers['Access-Control-Request-Headers'] if request.headers['Access-Control-Request-Headers']
-  end
+    # For all responses in this controller, return the CORS access control headers.
+
+    def cors_set_access_control_headers
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Allow-Methods'] = 'GET'
+        headers['Access-Control-Allow-Headers'] = %w{Origin Accept Content-Type X-Requested-With X-CSRF-Token}.join(',')
+        headers['Access-Control-Max-Age'] = "1728000"
+    end
+
+
 end
