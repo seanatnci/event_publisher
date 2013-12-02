@@ -1,4 +1,5 @@
 class OverlaysController < ApplicationController
+  after_filter :cors_set_access_control_headers
 
 # On the surface of the Earth, there are no straight lines. Due to the spherical
 # shape of the Earth, all distance calculations must take into account the arc
@@ -69,4 +70,15 @@ class OverlaysController < ApplicationController
     pictures = flickr.photos.search(:tags => 'dalkey').values_at(0..(photo_count - 1))
     @photos = pictures.in_groups_of(10)
   end
+
+  private
+
+    # For all responses in this controller, return the CORS access control headers.
+
+    def cors_set_access_control_headers
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Allow-Methods'] = 'GET'
+        headers['Access-Control-Allow-Headers'] = %w{Origin Accept Content-Type X-Requested-With X-CSRF-Token}.join(',')
+        headers['Access-Control-Max-Age'] = "1728000"
+    end
 end
